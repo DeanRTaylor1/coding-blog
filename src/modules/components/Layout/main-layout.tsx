@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from "react";
+import { AiOutlineBranches } from "react-icons/ai";
 
 const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -7,6 +8,10 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
         {children}
         <div className="status-bar">
           <span className="vim-mode">NORMAL</span>
+          <span className="git-status">
+            <AiOutlineBranches size={18} />{" "}
+            <p className="h-fit flex justify-center items-center p-12">main</p>
+          </span>
         </div>
       </div>
     </main>

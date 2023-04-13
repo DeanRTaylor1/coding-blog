@@ -7,7 +7,13 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+      mono: [
+        "JetBrains Mono",
+        "VT323",
+        "ui-monospace",
+        "SFMono-Regular",
+        "monospace",
+      ],
     },
 
     extend: {
