@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import React, { useEffect, useReducer } from "react";
+import React, { Fragment, useEffect, useReducer } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,6 +56,7 @@ const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
     case "DOWN_KEY":
       selectedIndex = state.findIndex((item) => item.isSelected);
       if (selectedIndex !== -1) {
+        // x % x = 0 so it will wrap around
         const nextIndex = (selectedIndex + 1) % state.length;
         return state.map((item, index) =>
           index === nextIndex
@@ -67,6 +68,7 @@ const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
     case "UP_KEY":
       selectedIndex = state.findIndex((item) => item.isSelected);
       if (selectedIndex !== -1) {
+        // x - 1 + length % length = x - 1
         const nextIndex = (selectedIndex - 1 + state.length) % state.length;
         return state.map((item, index) =>
           index === nextIndex
@@ -110,20 +112,22 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-start justify-between p-4">
-      <div className="main-layout z-10 flex flex-col items-start justify-start font-mono text-sm lg:flex">
-        <div>
-          <pre className="w-fit flex justify-start items-start text-vim-comment">
-            {`
+    <Fragment>
+      <div className="flex flex-col w-full h-full p-2">
+        {" "}
+        {/* Add flex-col class here */}
+        <pre className="w-fit flex justify-start items-start text-vim-comment">
+          {`
 ==========================================================
 Welcome to my blog! 
 sorted by: date 
 sort sequence: newest to oldest
 Help:<Up> to go up, <Down> to go down, <Enter> to select
 ==========================================================`}
-          </pre>
-        </div>
-        <div className="w-full">
+        </pre>
+        <div className="w-full flex flex-col">
+          {" "}
+          {/* Add flex-col class here */}
           {navItemsState.map((bp, i) => {
             return (
               <div
@@ -139,6 +143,6 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
           })}
         </div>
       </div>
-    </main>
+    </Fragment>
   );
 }
