@@ -40,6 +40,7 @@ body {
 }
 
 .main-layout {
+  position: relative;
   width: 95vw;
   height: 95vh;
   border-radius: 10px;
@@ -62,6 +63,9 @@ body {
   background: rgb(22, 22, 30);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  position: absolute;
+  bottom: 0;
+  
 }
 
 .comment-style {
