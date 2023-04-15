@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import React, { Fragment, useEffect, useReducer } from "react";
+import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal";
+import { useModalContext } from "@/core/services/ModalProvider";
+import { useKeyMappings } from "@/core/services/useKeyMappings";
+import { ModalNames } from "@/types/modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -84,6 +88,9 @@ const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
 
 export default function Home() {
   const [navItemsState, dispatch] = useReducer(navItemsReducer, navItems);
+  const { showModal, hideModal, isModalVisible } = useModalContext();
+
+  useKeyMappings();
 
   useEffect(() => {
     window.addEventListener("keydown", keyDownHandler);
@@ -143,6 +150,10 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
           })}
         </div>
       </div>
+      <FuzzyModal
+        isVisible={isModalVisible(ModalNames.FUZZY_FINDER)}
+        onClose={hideModal}
+      />
     </Fragment>
   );
 }
