@@ -6,6 +6,8 @@ import { useModalContext } from "@/core/services/ModalProvider";
 import { useKeyMappings } from "@/core/services/useKeyMappings";
 import { ModalNames } from "@/types/modals";
 import { PostItem, getAllPostTitles } from "./api/get-posts";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,7 +59,7 @@ type HomeProps = {
 export default function Home({ posts }: HomeProps) {
   const [navItemsState, dispatch] = useReducer(navItemsReducer, posts);
   const { showModal, hideModal, isModalVisible } = useModalContext();
-
+  const router = useRouter();
   useKeyMappings();
 
   useEffect(() => {
@@ -84,7 +86,14 @@ export default function Home({ posts }: HomeProps) {
     if (e.key === "k" || e.key === "ArrowUp") {
       dispatch({ type: "UP_KEY" });
     }
+    if (e.key === "Enter") {
+      const selected = navItemsState.find(item => item.isSelected);
+      if (selected) {
+        router.push(selected.link);
+      }
+    }
   };
+
 
   return (
     <Fragment>
@@ -105,14 +114,16 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
           {/* Add flex-col class here */}
           {navItemsState.map((bp, i) => {
             return (
-              <div
-                key={i}
-                className={`flex justify-start items-center w-full hover:cursor-pointer ${bp.isSelected ? "bg-vim-light-blue" : ""
-                  }`}
-                onMouseEnter={(e) => navItemSelectHandler(e, bp)}
-              >
-                {bp.name}
-              </div>
+              <Link href={bp.link} key={i}>
+                <div
+                  key={i}
+                  className={`flex justify-start items-center w-full hover:cursor-pointer ${bp.isSelected ? "bg-vim-light-blue" : ""
+                    }`}
+                  onMouseEnter={(e) => navItemSelectHandler(e, bp)}
+                >
+                  {bp.name}
+                </div>
+              </Link>
             );
           })}
         </div>
