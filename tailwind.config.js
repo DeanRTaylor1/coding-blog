@@ -29,6 +29,7 @@ module.exports = {
         "vim-dark-blue": "#223249",
         "vim-purple": "#957fb8",
         "vim-light-blue": "#7e9cd8",
+        "vim-light-blue-highlight": "rgba(54,54,70, 0.8)",
         "vim-bright-red": "#e82424",
         "vim-comment-green": "#98bb6c",
         "vim-orange": "#ffa066",

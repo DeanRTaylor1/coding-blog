@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import React, { Fragment, useEffect, useReducer } from "react";
+import React, { Fragment, useCallback, useEffect, useReducer } from "react";
 import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal";
 import { useModalContext } from "@/core/services/ModalProvider";
 import { useKeyMappings } from "@/core/services/useKeyMappings";
@@ -8,66 +8,50 @@ import { ModalNames } from "@/types/modals";
 import { PostItem, getAllPostTitles } from "./api/get-posts";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { blogPostReducer } from "@/core/hooks/BlogPostReducer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 
 
-const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
-  let selectedIndex: number;
-  switch (action.type) {
-    case "SELECT_NAV_ITEM":
-      return state.map((item) =>
-        item.name === action.name
-          ? { ...item, isSelected: true }
-          : { ...item, isSelected: false }
-      );
-      break;
-    case "DOWN_KEY":
-      selectedIndex = state.findIndex((item) => item.isSelected);
-      if (selectedIndex !== -1) {
-        // x % x = 0 so it will wrap around
-        const nextIndex = (selectedIndex + 1) % state.length;
-        return state.map((item, index) =>
-          index === nextIndex
-            ? { ...item, isSelected: true }
-            : { ...item, isSelected: false }
-        );
-      }
-      return state;
-    case "UP_KEY":
-      selectedIndex = state.findIndex((item) => item.isSelected);
-      if (selectedIndex !== -1) {
-        // x - 1 + length % length = x - 1
-        const nextIndex = (selectedIndex - 1 + state.length) % state.length;
-        return state.map((item, index) =>
-          index === nextIndex
-            ? { ...item, isSelected: true }
-            : { ...item, isSelected: false }
-        );
-      }
-      return state;
-    default:
-      return state;
-  }
-};
+
 
 type HomeProps = {
   posts: PostItem[];
 }
 
 export default function Home({ posts }: HomeProps) {
-  const [navItemsState, dispatch] = useReducer(navItemsReducer, posts);
+  const [blogPostState, dispatch] = useReducer(blogPostReducer, posts);
   const { showModal, hideModal, isModalVisible } = useModalContext();
   const router = useRouter();
   useKeyMappings();
 
+  const keyDownHandler = useCallback((e: KeyboardEvent) => {
+    console.log("down key pressed", e.key);
+    if (e.key === "j" || e.key === "ArrowDown") {
+      dispatch({ type: "DOWN_KEY" });
+    }
+    if (e.key === "k" || e.key === "ArrowUp") {
+      dispatch({ type: "UP_KEY" });
+    }
+    if (e.key === "Enter") {
+      const selected = blogPostState.find((item: PostItem) => item.isSelected);
+      if (selected) {
+        router.push(selected.link);
+      }
+    }
+  }, [blogPostState, router]);
+
   useEffect(() => {
+    if (isModalVisible(ModalNames.FUZZY_FINDER)) {
+      window.removeEventListener("keydown", keyDownHandler);
+      return
+    }
     window.addEventListener("keydown", keyDownHandler);
     return () => {
       window.removeEventListener("keydown", keyDownHandler);
     };
-  }, []);
+  }, [isModalVisible, keyDownHandler]);
 
   const navItemSelectHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -78,21 +62,7 @@ export default function Home({ posts }: HomeProps) {
     dispatch({ type: "SELECT_NAV_ITEM", name: bp.name });
   };
 
-  const keyDownHandler = (e: KeyboardEvent) => {
-    console.log("down key pressed", e.key);
-    if (e.key === "j" || e.key === "ArrowDown") {
-      dispatch({ type: "DOWN_KEY" });
-    }
-    if (e.key === "k" || e.key === "ArrowUp") {
-      dispatch({ type: "UP_KEY" });
-    }
-    if (e.key === "Enter") {
-      const selected = navItemsState.find(item => item.isSelected);
-      if (selected) {
-        router.push(selected.link);
-      }
-    }
-  };
+
 
 
   return (
@@ -112,16 +82,16 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
         <div className="w-full flex flex-col">
           {" "}
           {/* Add flex-col class here */}
-          {navItemsState.map((bp, i) => {
+          {blogPostState.map((post: PostItem, index: number) => {
             return (
-              <Link href={bp.link} key={i}>
+              <Link href={post.link} key={index}>
                 <div
-                  key={i}
-                  className={`flex justify-start items-center w-full hover:cursor-pointer ${bp.isSelected ? "bg-vim-light-blue" : ""
+                  key={index}
+                  className={`text-vim-light-blue flex justify-start items-center w-full hover:cursor-pointer ${post.isSelected ? "bg-vim-light-blue-highlight" : ""
                     }`}
-                  onMouseEnter={(e) => navItemSelectHandler(e, bp)}
+                  onMouseEnter={(e) => navItemSelectHandler(e, post)}
                 >
-                  {bp.name}
+                  {post.name}
                 </div>
               </Link>
             );
@@ -131,6 +101,7 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
       <FuzzyModal
         isVisible={isModalVisible(ModalNames.FUZZY_FINDER)}
         onClose={hideModal}
+        posts={posts}
       />
     </Fragment>
   );

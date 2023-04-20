@@ -3,8 +3,13 @@ import { useKeyMappings } from "@/core/services/useKeyMappings";
 import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal"
 import { ModalNames } from "@/types/modals"
 import { Fragment } from "react"
+import { PostItem, getAllPostTitles } from "../api/get-posts";
+import { GenericPageProps } from "@/modules/types/types";
 
-const NavigatingOpenSource: React.FC = () => {
+interface NavigatingOpenSourceProps extends GenericPageProps {
+}
+
+const NavigatingOpenSource: React.FC<NavigatingOpenSourceProps> = ({ posts }) => {
 
     const { showModal, hideModal, isModalVisible } = useModalContext();
     useKeyMappings();
@@ -14,9 +19,18 @@ const NavigatingOpenSource: React.FC = () => {
             <FuzzyModal
                 isVisible={isModalVisible(ModalNames.FUZZY_FINDER)}
                 onClose={hideModal}
+                posts={posts}
             />
         </Fragment>
     )
 }
 
 export default NavigatingOpenSource
+
+export function getServerSideProps() {
+    return {
+        props: {
+            posts: getAllPostTitles(),
+        },
+    };
+}
