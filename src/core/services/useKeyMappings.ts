@@ -1,12 +1,13 @@
 // useKeyMappings.ts
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useModalContext } from "./ModalProvider";
 import { ModalNames } from "@/types/modals";
+import { useRouter } from "next/router";
 
 export const useKeyMappings = () => {
   const { showModal, hideModal, isModalVisible } = useModalContext();
   const [keySequence, setKeySequence] = useState<string[]>([]);
-
+  const router = useRouter();
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       setKeySequence((prevKeys) => {
@@ -22,6 +23,12 @@ export const useKeyMappings = () => {
     };
   }, []);
 
+  const navigateHome = useCallback(() => {
+    if (router.pathname !== "/") {
+      router.push("/");
+    }
+  }, [router]);
+
   useEffect(() => {
     if (keySequence.join("") === " ff") {
       if (isModalVisible(ModalNames.FUZZY_FINDER)) {
@@ -32,5 +39,8 @@ export const useKeyMappings = () => {
         showModal(ModalNames.FUZZY_FINDER);
       }
     }
-  }, [keySequence, showModal, hideModal, isModalVisible]);
+    if (keySequence.join("") === " pv") {
+      navigateHome();
+    }
+  }, [keySequence, showModal, hideModal, isModalVisible, navigateHome]);
 };

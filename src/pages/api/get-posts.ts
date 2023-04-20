@@ -1,5 +1,5 @@
 import { capitaliseFirstLetters } from "@/modules/utils/capitalise-first-letter";
-import fs, { Stats } from "fs";
+import fs from "fs";
 import path from "path";
 
 interface PostItem {
@@ -18,8 +18,8 @@ export function getAllPostTitles() {
   const filenames = fs.readdirSync(postsDirectory);
 
   const postTitles = filenames.map((filename, i) => {
-    const stats = fs.statSync(postsDirectory + "/" + filename);
-    const createdAt = new Date(stats.birthtimeMs).toISOString();
+    const { birthtimeMs } = fs.statSync(`${postsDirectory}/${filename}`);
+    const createdAt = new Date(birthtimeMs).toISOString();
     const parts = filename.split("-").map((part) => part.replace(/\.tsx$/, ""));
     const language = parts[parts.length - 1];
     return {
@@ -28,7 +28,7 @@ export function getAllPostTitles() {
       language,
       icon: language,
       tags: parts,
-      isSelected: i === 0 ? true : false,
+      isSelected: i === 0,
       createdAt: createdAt,
     };
   });
