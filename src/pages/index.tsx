@@ -5,48 +5,11 @@ import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal";
 import { useModalContext } from "@/core/services/ModalProvider";
 import { useKeyMappings } from "@/core/services/useKeyMappings";
 import { ModalNames } from "@/types/modals";
-import { getAllPostTitles } from "./api/get-posts";
+import { PostItem, getAllPostTitles } from "./api/get-posts";
 
 const inter = Inter({ subsets: ["latin"] });
 
-interface NavItem {
-  name: string;
-  link: string;
-  language: string;
-  icon: string;
-  tags: string[];
-  isSelected: boolean;
-}
 
-const navItems = [
-  {
-    name: "blog post 1",
-    link: "/blog/post-1",
-    language: "javascript",
-    icon: "js",
-    tags: ["blog", "post", "1"],
-    isSelected: true,
-  },
-  {
-    name: "blog post 2",
-    link: "/blog/post-2",
-    language: "typescript",
-    icon: "ts",
-    tags: ["blog", "post", "2"],
-    isSelected: false,
-  },
-];
-
-for (let i = 3; i <= 10; i++) {
-  navItems.push({
-    name: `blog post ${i}`,
-    link: `/blog/post-${i}`,
-    language: i % 2 === 0 ? "javascript" : "typescript",
-    icon: i % 2 === 0 ? "js" : "ts",
-    tags: ["blog", "post", `${i}`],
-    isSelected: false,
-  });
-}
 
 const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
   let selectedIndex: number;
@@ -87,14 +50,17 @@ const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
   }
 };
 
-export default function Home({ posts }: any) {
-  const [navItemsState, dispatch] = useReducer(navItemsReducer, navItems);
+type HomeProps = {
+  posts: PostItem[];
+}
+
+export default function Home({ posts }: HomeProps) {
+  const [navItemsState, dispatch] = useReducer(navItemsReducer, posts);
   const { showModal, hideModal, isModalVisible } = useModalContext();
 
   useKeyMappings();
 
   useEffect(() => {
-    console.log(posts)
     window.addEventListener("keydown", keyDownHandler);
     return () => {
       window.removeEventListener("keydown", keyDownHandler);
@@ -103,7 +69,7 @@ export default function Home({ posts }: any) {
 
   const navItemSelectHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    bp: NavItem
+    bp: PostItem
   ) => {
     console.log("name", bp.name);
     console.log(bp.isSelected);
@@ -163,7 +129,7 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
 export function getServerSideProps() {
   return {
     props: {
-      posts: JSON.stringify(getAllPostTitles()),
+      posts: getAllPostTitles(),
     },
   };
 }
