@@ -5,6 +5,7 @@ import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal";
 import { useModalContext } from "@/core/services/ModalProvider";
 import { useKeyMappings } from "@/core/services/useKeyMappings";
 import { ModalNames } from "@/types/modals";
+import { getAllPostTitles } from "./api/get-posts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,13 +87,14 @@ const navItemsReducer = (state: any[], action: { type: any; name?: any }) => {
   }
 };
 
-export default function Home() {
+export default function Home({ posts }: any) {
   const [navItemsState, dispatch] = useReducer(navItemsReducer, navItems);
   const { showModal, hideModal, isModalVisible } = useModalContext();
 
   useKeyMappings();
 
   useEffect(() => {
+    console.log(posts)
     window.addEventListener("keydown", keyDownHandler);
     return () => {
       window.removeEventListener("keydown", keyDownHandler);
@@ -139,9 +141,8 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
             return (
               <div
                 key={i}
-                className={`flex justify-start items-center w-full hover:cursor-pointer ${
-                  bp.isSelected ? "bg-vim-light-blue" : ""
-                }`}
+                className={`flex justify-start items-center w-full hover:cursor-pointer ${bp.isSelected ? "bg-vim-light-blue" : ""
+                  }`}
                 onMouseEnter={(e) => navItemSelectHandler(e, bp)}
               >
                 {bp.name}
@@ -156,4 +157,13 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
       />
     </Fragment>
   );
+}
+
+
+export function getServerSideProps() {
+  return {
+    props: {
+      posts: JSON.stringify(getAllPostTitles()),
+    },
+  };
 }
