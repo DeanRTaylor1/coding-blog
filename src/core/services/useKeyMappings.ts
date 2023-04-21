@@ -1,8 +1,9 @@
 // useKeyMappings.ts
 import { useCallback, useEffect, useState } from "react";
 import { useModalContext } from "./ModalProvider";
-import { ModalNames } from "@/types/modals";
+
 import { useRouter } from "next/router";
+import { ModalNames } from "@/modules/types/modals";
 
 export const useKeyMappings = () => {
   const { showModal, hideModal, isModalVisible } = useModalContext();

@@ -4,11 +4,11 @@ import React, { Fragment, useCallback, useEffect, useReducer } from "react";
 import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal";
 import { useModalContext } from "@/core/services/ModalProvider";
 import { useKeyMappings } from "@/core/services/useKeyMappings";
-import { ModalNames } from "@/types/modals";
 import { PostItem, getAllPostTitles } from "./api/get-posts";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { blogPostReducer } from "@/core/hooks/BlogPostReducer";
+import { ModalNames } from "@/modules/types/modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,7 +54,7 @@ export default function Home({ posts }: HomeProps) {
   }, [isModalVisible, keyDownHandler]);
 
   const navItemSelectHandler = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     bp: PostItem
   ) => {
     console.log("name", bp.name);
@@ -82,14 +82,14 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
           {blogPostState.map((post: PostItem, index: number) => {
             return (
               <Link href={post.link} key={index}>
-                <div
+                <span
                   key={index}
                   className={`text-vim-light-blue flex justify-start items-center w-full hover:cursor-pointer ${post.isSelected ? "bg-vim-light-blue-highlight" : ""
                     }`}
                   onMouseEnter={(e) => navItemSelectHandler(e, post)}
                 >
                   {post.name}
-                </div>
+                </span>
               </Link>
             );
           })}

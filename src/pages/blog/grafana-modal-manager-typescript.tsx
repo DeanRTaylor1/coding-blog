@@ -2,9 +2,9 @@ import { useModalContext } from "@/core/services/ModalProvider";
 import { useKeyMappings } from "@/core/services/useKeyMappings"
 import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal";
 import { GenericPageProps } from "@/modules/types/types";
-import { ModalNames } from "@/types/modals";
 import { Fragment } from "react";
 import { getAllPostTitles } from "../api/get-posts";
+import { ModalNames } from "@/modules/types/modals";
 interface GrafanaModalProps extends GenericPageProps {
 }
 

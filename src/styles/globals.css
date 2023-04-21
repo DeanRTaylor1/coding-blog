@@ -52,6 +52,11 @@ ol {
   list-style-type: decimal;
   list-style-position: inside;
   padding-left: 1rem; /* adjust the padding as needed */
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+}
+li {
+  margin-bottom: 0.5rem;
 }
 
 ol li::marker {
@@ -60,6 +65,39 @@ ol li::marker {
 
 .nested-list {
   list-style-type: lower-alpha;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+ul {
+  list-style-type: disc;
+  list-style-position: inside;
+  padding-left: 1rem; /* adjust the padding as needed */
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.unordered-list {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.imageContainer {
+  width: 100%;
+  height: auto;
+  border-radius: 0.375rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 1280px) {
+  .imageContainer {
+    width: 825px;
+    height: auto;
+  }
 }
 
 .main-layout {
@@ -67,7 +105,6 @@ ol li::marker {
   width: 95vw;
   height: 95vh;
   border-radius: 10px;
-
   overflow-y: auto;
   /* backdrop-filter: blur(10px); */
   background: rgba(0, 0, 0, 0.6);
@@ -76,22 +113,42 @@ ol li::marker {
   -webkit-backdrop-filter: blur(10px);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  overflow: hidden;
+  overflow: hiddenb;
 }
-
+/*
+@media (min-width: 1280px) {
+  .main-layout p,
+  .main-layout div,
+  .main-layout h1,
+  .main-layout h2,
+  .main-layout ol {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+*/
 .blog-container {
   width: 100%;
   height: fit-content;
   padding: 1rem 1rem 2.5rem 1rem;
   overflow-y: auto;
+
+  scrollbar-width: thick;
+  scrollbar-color: rgba(42, 42, 55, 0.7) rgba(30, 31, 40, 0.5);
+}
+
+.content-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   justify-items: center;
   align-items: center;
   gap: 1rem;
-  scrollbar-width: thick;
-  scrollbar-color: rgba(42, 42, 55, 0.7) rgba(30, 31, 40, 0.5);
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+
   text-align: justify;
 }
 
@@ -212,21 +269,11 @@ ol li::marker {
 
 /* code-container */
 
-.embossed-container {
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1),
-    0 -5px 20px rgba(255, 255, 255, 0.1);
-  background: rgba(40, 44, 52, 0.7);
-  padding: 0 1rem 1rem 1rem;
-  position: relative;
-  min-width: 50vw;
-}
-
 .window-controls {
   display: flex;
   justify-content: flex-start;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0.5rem;
 }
 
 .control-circle {
@@ -245,11 +292,4 @@ ol li::marker {
 
 .green {
   background-color: #27c93f;
-}
-
-.code-container {
-  padding: 1rem;
-  background: rgba(40, 44, 52, 1);
-  border-radius: 5px;
-  overflow: auto;
 }
