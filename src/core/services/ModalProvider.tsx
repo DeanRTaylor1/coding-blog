@@ -1,4 +1,4 @@
-import { ModalNames } from "@/types/modals";
+import { ModalNames } from "@/modules/types/modals";
 import React, {
   PropsWithChildren,
   createContext,

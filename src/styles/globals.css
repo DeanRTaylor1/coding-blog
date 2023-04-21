@@ -145,11 +145,16 @@ ul {
   justify-items: center;
   align-items: center;
   gap: 1rem;
-  max-width: 70%;
-  margin-left: auto;
-  margin-right: auto;
 
   text-align: justify;
+}
+
+@media (min-width: 1280px) {
+  .content-container {
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .blog-container::-webkit-scrollbar {

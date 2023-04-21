@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { blogPostReducer } from "@/core/hooks/BlogPostReducer";
 import { ModalNames } from "@/modules/types/modals";
+import CommandLineModal from "@/modules/components/Layout/modals/command-line-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -100,6 +101,7 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
         onClose={hideModal}
         posts={posts}
       />
+      {/* <CommandLineModal isVisible={isModalVisible(ModalNames.COMMAND_LINE)} onClose={hideModal} /> */}
     </Fragment>
   );
 }

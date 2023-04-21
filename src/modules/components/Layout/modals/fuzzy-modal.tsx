@@ -1,7 +1,8 @@
 import { blogPostReducer } from "@/core/hooks/BlogPostReducer";
 import { blogFuzzyFinder } from "@/core/services/fuzzyFinder";
+import { ModalNames } from "@/modules/types/modals";
+import { ModalProps } from "@/modules/types/types";
 import { PostItem } from "@/pages/api/get-posts";
-import { ModalNames } from "@/types/modals";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 
@@ -15,10 +16,8 @@ const init = (initialPosts: PostItem[]): PostItem[] => {
 };
 
 
-interface FuzzyModalProps {
-  isVisible: boolean;
-  onClose: (ModalNames: ModalNames) => void;
-  posts: PostItem[]
+interface FuzzyModalProps extends ModalProps {
+  posts: PostItem[];
 }
 
 const FuzzyModal: React.FC<FuzzyModalProps> = ({ isVisible, onClose, posts }) => {

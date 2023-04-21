@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { AiOutlineBranches } from "react-icons/ai";
 import WindowControls from "./containers/window-controls";
+import StatusBar from "../status-bar";
 
 const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -10,13 +11,7 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
           <WindowControls />
         </span>
         {children}
-        <span className="status-bar">
-          <span className="vim-mode">NORMAL</span>
-          <span className="git-status">
-            <AiOutlineBranches size={18} />{" "}
-            <p className="h-fit flex justify-center items-center p-12">main</p>
-          </span>
-        </span>
+        <StatusBar />
       </div>
     </main>
   );

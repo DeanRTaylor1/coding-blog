@@ -30,6 +30,8 @@ export const useKeyMappings = () => {
     }
   }, [router]);
 
+  //TODO ADD KEYMAPPING TO OPEN COMMAND LINE BAR
+
   useEffect(() => {
     if (keySequence.join("") === " ff") {
       if (isModalVisible(ModalNames.FUZZY_FINDER)) {
