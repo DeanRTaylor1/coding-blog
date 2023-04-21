@@ -68,11 +68,8 @@ export default function Home({ posts }: HomeProps) {
   return (
     <Fragment>
       <div className="flex flex-col w-full h-full p-2">
-        {" "}
-        {/* Add flex-col class here */}
         <pre className="w-fit flex justify-start items-start text-vim-comment">
-          {`
-==========================================================
+          {`==========================================================
 Welcome to my blog! 
 sorted by: date 
 sort sequence: newest to oldest

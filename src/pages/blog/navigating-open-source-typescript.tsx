@@ -6,6 +6,10 @@ import { Fragment } from "react"
 import { PostItem, getAllPostTitles } from "../api/get-posts";
 import { GenericPageProps } from "@/modules/types/types";
 import Image from "next/image";
+import CodeContainer from "@/modules/components/Layout/containers/code-container";
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/light';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import CodeBlock from "@/modules/components/Layout/containers/code-block";
 
 interface NavigatingOpenSourceProps extends GenericPageProps {
 }
@@ -68,6 +72,18 @@ const NavigatingOpenSource: React.FC<NavigatingOpenSourceProps> = ({ posts }) =>
 
                     <li><span className="text-vim-red-standard font-extrabold">Utilize search functionality on version control hosting providers =&gt;</span> You can use the search functionality built directly into GitHub, GitLab, or other version control hosting providers to find projects. Pick a language to browse and have a look through popular repos within that domain.</li>
 
+                    <div className="w-full flex justify-center items-center">
+                        <div className=" xl:w-[825px] xl:h-[730px] rounded-md flex justify-center items-center  ">
+                            <Image
+                                src={"/github screenshot.png"}
+                                alt={"Searching github"}
+                                width={800}
+                                height={750}
+                                className="frosty-shadow my-4 rounded-md"
+                            />
+                        </div>
+                    </div>
+
                     <li><span className="text-vim-red-standard font-extrabold">Look for good first issues on GitHub =&gt; </span>
                         You can use the search functionality built directly into GitHub, GitLab, or other version control hosting providers to find projects. Pick a language to browse and have a look through popular repos within that domain.
                     </li>
@@ -77,17 +93,28 @@ const NavigatingOpenSource: React.FC<NavigatingOpenSourceProps> = ({ posts }) =>
                     <p>
                         When you find an interesting repository on GitHub, you&pos;ll want to start reading through the code. As you become more familiar with the codebase, you&pos;l be able to tackle issues directly. However, when first exploring a codebase, it&pos;s helpful to find an entry point and understand how the components fit together.
                     </p>
-                    <div className="w-full flex justify-center items-center">
-                        <div className=" xl:w-[825px] xl:h-[730px] rounded-md flex justify-center items-center bg-vim-light-blue-highlight ">
-                            <Image
-                                src={"/github screenshot.png"}
-                                alt={"Searching github"}
-                                width={800}
-                                height={750}
-                                className="drop-shadow-2xl rounded-md"
-                            />
-                        </div>
-                    </div>
+
+                    <ol className="flex flex-col gap-2">
+                        <li><span className="text-vim-red-standard font-extrabold">Get the code into an IDE/Editor</span> <br />Modern editors and IDEs make it much easier to navigate codebases than the default GitHub interface. Even though GitHub has recently upgraded its search functionality, it&pos;s still preferable to open the codebase in an editor like Vim or VSCode. There are a couple of ways to do this:
+                            <ol className="nested-list">
+                                <li>
+                                    <span className="text-vim-purple font-extrabold">Open VSCode in the browser directly =&gt;</span> GitHub has a built-in feature that allows you to open any GitHub codebase in VSCode in the browser. This provides an easier way to navigate through the repository and inspect functions, classes, and variables. To access this feature, simply append &quot;.dev&quot; to the end of the URL in place of &quot;.com&quot;; the rest of the URL remains the same.
+                                </li>
+                                <li>
+                                    <span className="text-vim-purple font-extrabold">Fork & Clone the repository: =&gt;</span> Fork the repository and use the Git CLI to clone it to your local machine. This enables you to open the code in the editor of your choice.
+                                    <div className="mt-4 flex justify-center min-w-full ">
+                                        <CodeContainer>
+                                            <CodeBlock language="bash"
+                                                codeString={`git clone "repourl" --depth 1`} />
+                                        </CodeContainer>
+
+                                    </div>
+
+                                </li>
+
+                            </ol>
+                        </li>
+                    </ol>
                 </div>
 
             </div>

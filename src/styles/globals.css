@@ -51,11 +51,15 @@ body {
 ol {
   list-style-type: decimal;
   list-style-position: inside;
-  padding-left: 1em; /* adjust the padding as needed */
+  padding-left: 1rem; /* adjust the padding as needed */
 }
 
 ol li::marker {
   color: rgb(126, 156, 216);
+}
+
+.nested-list {
+  list-style-type: lower-alpha;
 }
 
 .main-layout {
@@ -199,4 +203,53 @@ ol li::marker {
   overflow-y: auto;
   background: rgba(42, 42, 55, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.frosty-shadow {
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1),
+    0 -5px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* code-container */
+
+.embossed-container {
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1),
+    0 -5px 20px rgba(255, 255, 255, 0.1);
+  background: rgba(40, 44, 52, 0.7);
+  padding: 0 1rem 1rem 1rem;
+  position: relative;
+  min-width: 50vw;
+}
+
+.window-controls {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.control-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #ff5f56;
+}
+
+.yellow {
+  background-color: #ffbd2e;
+}
+
+.green {
+  background-color: #27c93f;
+}
+
+.code-container {
+  padding: 1rem;
+  background: rgba(40, 44, 52, 1);
+  border-radius: 5px;
+  overflow: auto;
 }

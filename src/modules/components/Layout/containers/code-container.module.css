@@ -1,0 +1,39 @@
+.embossed-container {
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 -5px 15px rgba(0, 0, 0, 0.2);
+  background: #f0f0f0;
+  padding: 1em;
+  position: relative;
+}
+
+.window-controls {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.control-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #ff5f56;
+}
+
+.yellow {
+  background-color: #ffbd2e;
+}
+
+.green {
+  background-color: #27c93f;
+}
+
+.code-container {
+  padding: 1em;
+  background: #fff;
+  border-radius: 5px;
+  overflow: auto;
+}
