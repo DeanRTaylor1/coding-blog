@@ -44,7 +44,7 @@ export default function Home({ posts }: HomeProps) {
   }, [blogPostState, router]);
 
   useEffect(() => {
-    if (isModalVisible(ModalNames.FUZZY_FINDER)) {
+    if (isModalVisible(ModalNames.FUZZY_FINDER) || isModalVisible(ModalNames.COMMAND_LINE)) {
       window.removeEventListener("keydown", keyDownHandler);
       return
     }
@@ -101,7 +101,7 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
         onClose={hideModal}
         posts={posts}
       />
-      {/* <CommandLineModal isVisible={isModalVisible(ModalNames.COMMAND_LINE)} onClose={hideModal} /> */}
+      <CommandLineModal isVisible={isModalVisible(ModalNames.COMMAND_LINE)} onClose={hideModal} />
     </Fragment>
   );
 }
