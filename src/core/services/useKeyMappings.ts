@@ -5,7 +5,8 @@ import { useRouter } from "next/router";
 import { ModalNames } from "@/modules/types/modals";
 
 export const useKeyMappings = () => {
-  const { showModal, hideModal, isModalVisible } = useModalContext();
+  const { showModal, hideModal, isModalVisible, hideAllModals } =
+    useModalContext();
   const [keySequence, setKeySequence] = useState<string[]>([]);
   const router = useRouter();
   useEffect(() => {
@@ -54,5 +55,17 @@ export const useKeyMappings = () => {
         showModal(ModalNames.COMMAND_LINE);
       }
     }
-  }, [keySequence, showModal, hideModal, isModalVisible, navigateHome]);
+
+    if (keySequence[keySequence.length - 1] === "Escape") {
+      setKeySequence([]);
+      hideAllModals();
+    }
+  }, [
+    keySequence,
+    showModal,
+    hideModal,
+    isModalVisible,
+    navigateHome,
+    hideAllModals,
+  ]);
 };

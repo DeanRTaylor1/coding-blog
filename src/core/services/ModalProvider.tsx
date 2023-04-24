@@ -11,6 +11,7 @@ interface ModalContextInterface {
   showModal: (modalName: ModalNames) => void;
   hideModal: (modalName: ModalNames) => void;
   isModalVisible: (modalName: ModalNames) => boolean;
+  hideAllModals: () => void;
 }
 
 const ModalContext = createContext<ModalContextInterface | null>(null);
@@ -27,6 +28,7 @@ const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [modals, setModals] = useState<any>({});
 
   const showModal = (modalName: string) => {
+    hideAllModals()
     setModals((prevModals: any) => ({ ...prevModals, [modalName]: true }));
   };
 
@@ -38,8 +40,12 @@ const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
     return modals[modalName] || false;
   };
 
+  const hideAllModals = () => {
+    setModals({})
+  }
+
   return (
-    <ModalContext.Provider value={{ showModal, hideModal, isModalVisible }}>
+    <ModalContext.Provider value={{ showModal, hideModal, isModalVisible, hideAllModals }}>
       {children}
     </ModalContext.Provider>
   );
