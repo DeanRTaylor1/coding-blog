@@ -13,6 +13,7 @@ import { ModalNames } from "@/modules/types/modals";
 import TableComponent from "@/modules/components/Table/table";
 import { repoDirectoryTableHeaders, repoDirectoryTableData } from "@/modules/data/repo-directory-table-data";
 import { entryPointTableHeaders, entryPointTableData } from "@/modules/data/entry-point-table-data";
+import GlobalModals from "@/modules/components/Layout/modals/global-modals";
 
 
 interface NavigatingOpenSourceProps extends GenericPageProps {
@@ -220,11 +221,7 @@ app.init();`} />
 
                 </div>
             </div>
-            <FuzzyModal
-                isVisible={isModalVisible(ModalNames.FUZZY_FINDER)}
-                onClose={hideModal}
-                posts={posts}
-            />
+            <GlobalModals posts={posts} />
         </Fragment>
     )
 }

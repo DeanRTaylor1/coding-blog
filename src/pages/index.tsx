@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import { blogPostReducer } from "@/core/hooks/BlogPostReducer";
 import { ModalNames } from "@/modules/types/modals";
 import CommandLineModal from "@/modules/components/Layout/modals/command-line-modal";
+import { GenericPageProps } from "@/modules/types/types";
+import GlobalModals from "@/modules/components/Layout/modals/global-modals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,8 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 
-type HomeProps = {
-  posts: PostItem[];
+interface HomeProps extends GenericPageProps {
 }
 
 export default function Home({ posts }: HomeProps) {
@@ -96,12 +97,7 @@ Help:<Up> to go up, <Down> to go down, <Enter> to select
           })}
         </div>
       </div>
-      <FuzzyModal
-        isVisible={isModalVisible(ModalNames.FUZZY_FINDER)}
-        onClose={hideModal}
-        posts={posts}
-      />
-      <CommandLineModal isVisible={isModalVisible(ModalNames.COMMAND_LINE)} onClose={hideModal} />
+      <GlobalModals posts={posts} />
     </Fragment>
   );
 }

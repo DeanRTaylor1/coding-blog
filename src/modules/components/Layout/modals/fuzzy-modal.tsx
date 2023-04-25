@@ -1,4 +1,5 @@
 import { blogPostReducer } from "@/core/hooks/BlogPostReducer";
+import { useModalContext } from "@/core/services/ModalProvider";
 import { blogFuzzyFinder } from "@/core/services/fuzzyFinder";
 import { ModalNames } from "@/modules/types/modals";
 import { ModalProps } from "@/modules/types/types";
@@ -25,6 +26,7 @@ const FuzzyModal: React.FC<FuzzyModalProps> = ({ isVisible, onClose, posts }) =>
   const [query, setQuery] = useState<string>("");
   const [navItemsState, dispatch] = useReducer(blogPostReducer, posts, init);
   const queryInput = useRef<HTMLInputElement>(null);
+  const { hideAllModals } = useModalContext();
 
   const router = useRouter()
   useEffect(() => {
@@ -49,6 +51,7 @@ const FuzzyModal: React.FC<FuzzyModalProps> = ({ isVisible, onClose, posts }) =>
     if (e.key === "Enter") {
       const selected = navItemsState.find((item: PostItem) => item.isSelected);
       if (selected) {
+        hideAllModals();
         router.push(selected.link);
       }
     }

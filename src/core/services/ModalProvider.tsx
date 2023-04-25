@@ -28,6 +28,7 @@ const ModalProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [modals, setModals] = useState<any>({});
 
   const showModal = (modalName: string) => {
+    //This will prevent multiple modals from being opened at the same time
     hideAllModals()
     setModals((prevModals: any) => ({ ...prevModals, [modalName]: true }));
   };
