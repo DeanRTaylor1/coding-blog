@@ -45,7 +45,9 @@ export default function Home({ posts }: HomeProps) {
   }, [blogPostState, router]);
 
   useEffect(() => {
-    if (isModalVisible(ModalNames.FUZZY_FINDER) || isModalVisible(ModalNames.COMMAND_LINE)) {
+    const isAnyModalVisible = Object.values(ModalNames).some((modalName) => isModalVisible(modalName));
+
+    if (isAnyModalVisible) {
       window.removeEventListener("keydown", keyDownHandler);
       return
     }

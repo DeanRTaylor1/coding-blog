@@ -1,0 +1,22 @@
+.asciiArt {
+  transform-origin: top left;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .asciiArt {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .asciiArt {
+    transform: scale(0.6);
+  }
+}
+
+@media (max-width: 480px) {
+  .asciiArt {
+    transform: scale(0.4);
+  }
+}

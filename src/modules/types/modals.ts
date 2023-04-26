@@ -1,4 +1,5 @@
 export enum ModalNames {
   FUZZY_FINDER = "FUZZY_FINDER",
   COMMAND_LINE = "COMMAND_LINE",
+  HELP_MODAL = "HELP_MODAL",
 }

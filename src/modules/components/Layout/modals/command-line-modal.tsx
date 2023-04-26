@@ -2,6 +2,7 @@ import { ModalProps } from '@/modules/types/types';
 import styles from './command-line-modal.module.css';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useCommandLineHandler from '@/core/hooks/useCommandLine';
+import { useModalContext } from '@/core/services/ModalProvider';
 
 const CommandLineModal: React.FC<ModalProps> = ({ isVisible, onClose, }) => {
 

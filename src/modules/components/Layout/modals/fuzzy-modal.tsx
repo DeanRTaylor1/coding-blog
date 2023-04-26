@@ -55,7 +55,7 @@ const FuzzyModal: React.FC<FuzzyModalProps> = ({ isVisible, onClose, posts }) =>
         router.push(selected.link);
       }
     }
-  }, [navItemsState, router]);
+  }, [navItemsState, router, hideAllModals]);
 
 
 
