@@ -1,20 +1,78 @@
 // useKeyMappings.ts
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useModalContext } from "./ModalProvider";
 import { useRouter } from "next/router";
 import { ModalNames } from "@/modules/types/modals";
 
-export const useKeyMappings = () => {
+export const useKeyMappings = (
+  scrollContainerRef: React.RefObject<HTMLDivElement> = { current: null }
+) => {
   const { showModal, hideModal, isModalVisible, hideAllModals } =
     useModalContext();
   const [keySequence, setKeySequence] = useState<string[]>([]);
   const router = useRouter();
+
+  const handleBlogScroll = useCallback(
+    (event: KeyboardEvent) => {
+      const scrollContainer = scrollContainerRef.current;
+      if (!scrollContainer) return;
+
+      const viewportHeight = scrollContainer.clientHeight;
+
+      switch (event.key) {
+        case "g":
+          console.log("g");
+          scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+          break;
+
+        case "G":
+          console.log("G");
+          scrollContainer.scrollTo({
+            top: scrollContainer.scrollHeight,
+            behavior: "smooth",
+          });
+          break;
+        case "F":
+          console.log("F");
+          scrollContainer.scrollBy({
+            top: viewportHeight,
+            behavior: "smooth",
+          });
+          break;
+        case "B":
+          scrollContainer.scrollBy({
+            top: -viewportHeight,
+            behavior: "smooth",
+          });
+          break;
+        case "D":
+          scrollContainer.scrollBy({
+            top: viewportHeight / 2,
+            behavior: "smooth",
+          });
+          break;
+        case "U":
+          scrollContainer.scrollBy({
+            top: -viewportHeight / 2,
+            behavior: "smooth",
+          });
+          break;
+        default:
+          break;
+      }
+    },
+    [scrollContainerRef]
+  );
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       setKeySequence((prevKeys) => {
         const newKeys = [...prevKeys.slice(-2), event.key];
         return newKeys;
       });
+      if (scrollContainerRef.current) {
+        handleBlogScroll(event);
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -22,8 +80,7 @@ export const useKeyMappings = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
-
+  }, [scrollContainerRef, handleBlogScroll]);
   const navigateHome = useCallback(() => {
     if (router.pathname !== "/") {
       router.push("/");

@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { AiOutlineBranches } from "react-icons/ai";
 import WindowControls from "./containers/window-controls";
-import StatusBar from "../status-bar";
+import StatusBar from "../status-bar/status-bar";
 
 const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (

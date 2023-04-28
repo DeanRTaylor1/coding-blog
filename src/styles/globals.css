@@ -133,7 +133,6 @@ ul {
   height: fit-content;
   padding: 1rem 1rem 2.5rem 1rem;
   overflow-y: auto;
-
   scrollbar-width: thick;
   scrollbar-color: rgba(42, 42, 55, 0.7) rgba(30, 31, 40, 0.5);
 }
@@ -297,4 +296,23 @@ ul {
 
 .green {
   background-color: #27c93f;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(30, 31, 40, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(42, 42, 55, 0.7);
+  border-radius: 6px;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thick;
+  scrollbar-color: rgba(42, 42, 55, 0.7) rgba(30, 31, 40, 0.5);
+  overflow-x: hidden;
 }

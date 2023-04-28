@@ -1,7 +1,9 @@
+import { useModalContext } from "@/core/services/ModalProvider";
 import { AiOutlineBranches } from "react-icons/ai";
 
 
 const StatusBar: React.FC = () => {
+    const { isModalVisible } = useModalContext();
     return (
         <div className="status-bar">
             <span className="vim-mode">NORMAL</span>
