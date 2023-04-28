@@ -1,19 +1,12 @@
-import { useModalContext } from "@/core/services/ModalProvider";
-import { useKeyMappings } from "@/core/services/useKeyMappings";
-import FuzzyModal from "@/modules/components/Layout/modals/fuzzy-modal"
 import { Fragment } from "react"
-import { PostItem, getAllPostTitles } from "../api/get-posts";
+import { getAllPostTitles } from "../api/get-posts";
 import { GenericPageProps } from "@/modules/types/types";
 import Image from "next/image";
 import CodeContainer from "@/modules/components/Layout/containers/code-container";
-import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/light';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import CodeBlock from "@/modules/components/Layout/containers/code-block";
-import { ModalNames } from "@/modules/types/modals";
 import TableComponent from "@/modules/components/Table/table";
 import { repoDirectoryTableHeaders, repoDirectoryTableData } from "@/modules/data/repo-directory-table-data";
 import { entryPointTableHeaders, entryPointTableData } from "@/modules/data/entry-point-table-data";
-import GlobalModals from "@/modules/components/Layout/modals/global-modals";
 import BlogPost from "@/modules/components/Layout/containers/blog-post";
 
 
@@ -24,7 +17,7 @@ const NavigatingOpenSource: React.FC<NavigatingOpenSourceProps> = ({ posts }) =>
 
     return (
         <Fragment>
-            <BlogPost>
+            <BlogPost posts={posts}>
 
                 <h1 className=" text-4xl text-vim-purple font-extrabold " >Navigating Open Source</h1>
                 <h2 className="blogHeader">Getting Started</h2>
@@ -213,12 +206,12 @@ app.init();`} />
                         </li>
 
                         <div>
-                            And that&apos;s pretty much it get to the root of the project, and you&apos;ve got a diving-off point. Now it&apos;s time to navigate through the code and see how it works!
-                        </div>
+                            And that&apos;s pretty much it get to the root of the project, and you&apos;ve got a diving-off point. Now it&apos;s time to navigate through the code and see how it works!   </div>
                     </ol>
+                    <div> Since this article is getting quite long and I feel this is an appropriate cutoff point, we will continue with more tips in part 2...
+                    </div>
                 </div>
             </BlogPost>
-            <GlobalModals posts={posts} />
         </Fragment>
     )
 }
