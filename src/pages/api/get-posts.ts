@@ -13,7 +13,7 @@ interface PostItem {
 }
 
 export function getAllPostTitles() {
-  console.log(process.cwd());
+  // console.log(process.cwd());
   const postsDirectory = path.join(process.cwd(), "src/pages/blog");
   const filenames = fs.readdirSync(postsDirectory);
 
@@ -28,11 +28,18 @@ export function getAllPostTitles() {
       language,
       icon: language,
       tags: parts,
-      isSelected: i === 0,
+      isSelected: false,
       createdAt: createdAt,
     };
   });
-  console.log(postTitles);
+
+  postTitles.sort((a, b) => {
+    return b.createdAt.localeCompare(a.createdAt);
+  });
+
+  postTitles[0].isSelected = true;
+
+  // console.log(postTitles);
   return postTitles;
 }
 
