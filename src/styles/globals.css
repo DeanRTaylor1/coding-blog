@@ -156,6 +156,10 @@ ul {
   }
 }
 
+.content-container div {
+  width: 100%;
+}
+
 .blog-container::-webkit-scrollbar {
   width: 14px;
 }
