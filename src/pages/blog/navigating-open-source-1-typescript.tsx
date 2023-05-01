@@ -18,10 +18,9 @@ const NavigatingOpenSource: React.FC<NavigatingOpenSourceProps> = ({ posts }) =>
     return (
         <Fragment>
             <BlogPost posts={posts}>
-
-                <h1 className=" text-4xl text-vim-purple font-extrabold " >Navigating Open Source</h1>
+                <h1 className=" text-4xl text-vim-purple font-extrabold " >Navigating Open Source - Part 1</h1>
                 <h2 className="blogHeader">Getting Started</h2>
-                <p className="w-fit flex justify-start items-start text-vim-light">
+                <p className="w-full">
                     Have you been looking for an open source codebase to contribute to?
                     Have you found it difficult to navigate a codebase, find an entry point,
                     understand what is actually going on? Do you want to know how code is written
